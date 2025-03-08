@@ -1,10 +1,10 @@
-# fly.toml app configuration file generated for speckle-compute-25-white-meadow-9939 on 2025-03-04T10:57:29Z
+# fly.toml app configuration file generated for speckle-compute-25-fvisconti on 2025-03-08T18:01:54+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'speckle-compute-25'
-primary_region = 'iad'
+app = 'speckle-compute-25-fvisconti'
+primary_region = 'cdg'
 kill_signal = 'SIGUSR1'
 kill_timeout = '5m0s'
 
@@ -19,6 +19,14 @@ kill_timeout = '5m0s'
 
 [env]
   PORT = '8080'
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
 
 [[services]]
   protocol = 'tcp'
@@ -45,6 +53,4 @@ kill_timeout = '5m0s'
     grace_period = '10s'
 
 [[vm]]
-  memory = '256mb'
-  cpu_kind = 'shared'
-  cpus = 1
+  size = 'shared-cpu-1x'
